@@ -126,16 +126,16 @@
       <!-- speakers -->
       <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
         <div class="media">
-          <img
+          {% comment %} <img
             class="mr-3 img-fluid"
             src="{{i.img.url}}"
             alt="speaker"
-          />
+          /> {% endcomment %}
           <div class="media-body">
             <h4 class="mt-0"><a class="teacher-tag" href="{% url 'teacher_single' i.slug %}">{{i.first_name}} {{i.last_name}}</a></h4>
             <h6 class="text-color"><a class="teacher-tag" href="{% url 'courses_slug' i.category.slug %}">{{i.category}}</a></h6>
             <p>
-              Asakjdlkasjd aslkdjlasjd asldjklasjda sdlkasjdlkas dalskjdalskjd alsdkjalskjdasndlkajsd lasdjka
+              {{ i.desc }}
             </p>
           </div>
         </div>
