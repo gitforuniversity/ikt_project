@@ -89,7 +89,6 @@ class BlogsView(ListCreateAPIView):
     serializer_class = SerialBlog
     queryset = Blog.objects.all()
 
-
 class BlogViewSlug(RetrieveUpdateDestroyAPIView):
     serializer_class = SerialBlog
     queryset = Blog.objects.all()
@@ -115,8 +114,80 @@ class TeacherViewSlug(RetrieveUpdateDestroyAPIView):
     # def perform_update(self, serializer):
     #     serializer.save(modified_by=self.request.user)
 
+class EventsView(ListCreateAPIView):
+    serializer_class = SerialEvent
+    queryset = Event.objects.all()
 
 
+class EventViewSlug(RetrieveUpdateDestroyAPIView):
+    serializer_class = SerialEvent
+    queryset = Event.objects.all()
+    lookup_field = "slug"
+
+    # permission_classes = [IsOwner]
+
+    # def perform_update(self, serializer):
+    #     serializer.save(modified_by=self.request.user)
+
+class CoursesView(ListCreateAPIView):
+    serializer_class = SerialCourse
+    queryset = Course.objects.all()
+
+class CourseViewSlug(RetrieveUpdateDestroyAPIView):
+    serializer_class = SerialCourse
+    queryset = Course.objects.all()
+    lookup_field = "slug"
+
+    # permission_classes = [IsOwner]
+
+    # def perform_update(self, serializer):
+    #     serializer.save(modified_by=self.request.user)
+
+class NoticesView(ListCreateAPIView):
+    serializer_class = SerialNotice
+    queryset = Notice.objects.all()
+
+class NoticeViewSlug(RetrieveUpdateDestroyAPIView):
+    serializer_class = SerialNotice
+    queryset = Notice.objects.all()
+    lookup_field = "slug"
+
+    # permission_classes = [IsOwner]
+
+    # def perform_update(self, serializer):
+    #     serializer.save(modified_by=self.request.user)
+
+class ResearchesView(ListCreateAPIView):
+    serializer_class = SerialResearch
+    queryset = Research.objects.all()
+
+class ResearchViewSlug(RetrieveUpdateDestroyAPIView):
+    serializer_class = SerialResearch
+    queryset = Research.objects.all()
+    lookup_field = "slug"
+
+    # permission_classes = [IsOwner]
+
+    # def perform_update(self, serializer):
+    #     serializer.save(modified_by=self.request.user)
+
+class ScholarshipsView(ListCreateAPIView):
+    serializer_class = SerialScholarship
+    queryset = Scholarship.objects.all()
+
+class ScholarshipViewSlug(RetrieveUpdateDestroyAPIView):
+    serializer_class = SerialScholarship
+    queryset = Scholarship.objects.all()
+    lookup_field = "slug"
+
+    # permission_classes = [IsOwner]
+
+    # def perform_update(self, serializer):
+    #     serializer.save(modified_by=self.request.user)
+
+
+
+#--------------------------------------------------------------------------------------------------#
 
 # class ActivitiesView(APIView):
 #     def get(self, request, *args, **kwargs):
@@ -146,4 +217,5 @@ class TeacherViewSlug(RetrieveUpdateDestroyAPIView):
 #             )
 #             return Response(data = blog_data.data, status=status.HTTP_201_CREATED)
 #         return Response(data = blog_data.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+#--------------------------------------------------------------------------------------------------#

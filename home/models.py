@@ -9,11 +9,14 @@ class Base(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 
+
 class Activitie(Base):
     name = models.CharField(max_length=30)
+    slug = models.SlugField(max_length=50, blank=True, null=True)
 
     def __str__(self) -> str:
         return self.name
+
 
 class Categorie(Base):
     name = models.CharField(max_length=30, unique=True)
@@ -21,10 +24,6 @@ class Categorie(Base):
 
     def __str__(self) -> str:
         return self.name
-    
-    def save(self, *args, **kwargs) -> None:
-        self.slug = slugify(self.name)
-        return super().save(args, kwargs)
 
 
 # Teacher Section
@@ -57,10 +56,6 @@ class Teacher(Base):
 
     def __str__(self) -> str:
         return self.first_name + " " + self.last_name
-    
-    def save(self, *args) -> None:
-        self.slug = slugify(f'{self.first_name} {self.last_name}')
-        return super().save(args)
 
 
 # Courses Section
@@ -89,10 +84,6 @@ class Course(Base):
 
     def __str__(self) -> str:
         return self.title
-    
-    def save(self, *args) -> None:
-        self.slug = slugify(self.title)
-        return super().save(*args)
 
 
 # Blogs Section
@@ -113,9 +104,7 @@ class Blog(Base):
 
     def __str__(self) -> str:
         return self.title
-    
 
-    
 
 # Events Section
 class Event(Base):
@@ -140,10 +129,6 @@ class Event(Base):
 
     def __str__(self) -> str:
         return self.title
-    
-    def save(self, *args) -> None:
-        self.slug = slugify(self.title)
-        return super().save(args)
 
 
 # Notice Section
@@ -162,10 +147,6 @@ class Notice(Base):
 
     def __str__(self) -> str:
         return self.title
-    
-    def save(self, *args) -> None:
-        self.slug = slugify(self.title)
-        return super().save(args)
 
 
 # Research Section
@@ -179,9 +160,11 @@ class Research(Base):
     # Single Section
 
     # Post Functions
+    slug = models.SlugField(max_length=50, blank=True, null=True)
 
     def __str__(self) -> str:
         return f"Research {self.title}"
+
 
 class Scholarship(Base):
     category = models.ForeignKey(Categorie, related_name="scholarship", on_delete=models.CASCADE)
@@ -194,6 +177,8 @@ class Scholarship(Base):
     # Single Section
 
     # Post Functions
+    slug = models.SlugField(max_length=50, blank=True, null=True)
 
     def __str__(self) -> str:
         return self.title
+    
