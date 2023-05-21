@@ -7,7 +7,7 @@ User = get_user_model()
 # Create your models here.
 class Base(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
-    update_datt = models.DateTimeField(auto_now=True)
+    update_date = models.DateTimeField(auto_now=True)
 
 class Activitie(Base):
     name = models.CharField(max_length=30)
@@ -102,11 +102,11 @@ class Blog(Base):
 
     # Page Section
     short_desc = models.TextField()
-    cover_img = models.ImageField(upload_to='blog/cover-img')
+    cover_img = models.ImageField(upload_to='blog/cover-img', blank=True, null=True)
 
     # Single Section
     desc = models.TextField()
-    img = models.ImageField(upload_to='blog/img')
+    img = models.ImageField(upload_to='blog/img', blank=True, null=True)
 
     # Page Functions
     slug = models.SlugField(max_length=80, blank=True, null=True)
@@ -114,9 +114,7 @@ class Blog(Base):
     def __str__(self) -> str:
         return self.title
     
-    def save(self, *args) -> None:
-        self.slug = slugify(self.title)
-        return super().save(args)
+
     
 
 # Events Section
