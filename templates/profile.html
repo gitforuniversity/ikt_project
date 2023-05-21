@@ -52,7 +52,15 @@
             <div class="text pt-4">
               <p> 
                 <strong>{{ request.user.last_name }} {{ request.user.first_name }}</strong>
-                {{ request.user.profile.short_desc }}
+                {% if request.user.profile.short_desc == none %}
+                <p>
+                  Write a description...
+                </p>
+                {% else %}
+                <p>
+                  {{ request.user.profile.short_desc }}
+                </p>
+                {% endif %}
               </p>
             </div>
           </div>

@@ -26,6 +26,7 @@ class Categorie(Base):
         self.slug = slugify(self.name)
         return super().save(args, kwargs)
 
+
 # Teacher Section
 class Teacher(Base):
     category = models.ForeignKey(Categorie, related_name="teacher", on_delete=models.CASCADE)
@@ -60,6 +61,7 @@ class Teacher(Base):
     def save(self, *args) -> None:
         self.slug = slugify(f'{self.first_name} {self.last_name}')
         return super().save(args)
+
 
 # Courses Section
 class Course(Base):
@@ -116,7 +118,6 @@ class Blog(Base):
         self.slug = slugify(self.title)
         return super().save(args)
     
-
 
 # Events Section
 class Event(Base):

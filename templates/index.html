@@ -264,7 +264,7 @@
                 <i class="ti-calendar mr-1 text-color"></i>{{i.date}}
               </li>
               <li class="list-inline-item">
-                <a class="text-color" href="">{{i.category}}</a>
+                <a class="text-color" href="{% url 'courses_slug' i.category.slug %}">{{i.category}}</a>
               </li>
             </ul>
             <a href="{% url 'course_single' i.slug %}">
