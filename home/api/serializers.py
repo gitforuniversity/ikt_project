@@ -1,3 +1,4 @@
+from gettext import translation
 from django.contrib.auth import get_user_model
 from home.models import *
 from rest_framework import serializers
@@ -47,26 +48,36 @@ class SerialBlog(serializers.ModelSerializer):
         return Blog.objects.create(**validated_data)
 
 class SerialTeacher(serializers.ModelSerializer):
-    category = SerialCategory()
-    teacher_activity = SerialActivity(many = True)
-
+    teacher_activity = serializers.PrimaryKeyRelatedField(queryset = Activitie.objects.all(), many = True)
     class Meta:
         model = Teacher
         fields = '__all__'
         read_only_fields = ['id', 'slug', 'create_date', 'update_date']
     
     def create(self, validated_data):
-        return Teacher.objects.create(**validated_data)
+        teachers_data = validated_data.pop('teacher_activity', [])
+        obj = super().create(validated_data)
+
+        if teachers_data:
+            obj.teacher_activity.set(teachers_data)
+        
+        return obj
     
 class SerialEvent(serializers.ModelSerializer):
-    # teachers = SerialTeacher(many = True)
+    teachers = serializers.PrimaryKeyRelatedField(queryset=Teacher.objects.all(), many=True)
     class Meta:
         model = Event
         fields = '__all__'
         read_only_fields = ['id', 'slug', 'create_date', 'update_date']
     
     def create(self, validated_data):
-        return Event.objects.create(**validated_data)
+        teachers_data = validated_data.pop('teachers', [])
+        obj = super().create(validated_data)
+
+        if teachers_data:
+            obj.teachers.set(teachers_data)
+        
+        return obj
 
 class SerialCourse(serializers.ModelSerializer):
 
@@ -76,7 +87,7 @@ class SerialCourse(serializers.ModelSerializer):
         read_only_fields = ['id', 'slug', 'create_date', 'update_date']
     
     def create(self, validated_data):
-        return Event.objects.create(**validated_data)
+        return Course.objects.create(**validated_data)
 
 class SerialNotice(serializers.ModelSerializer):
     
@@ -86,7 +97,7 @@ class SerialNotice(serializers.ModelSerializer):
         read_only_fields = ['id', 'slug', 'create_date', 'update_date']
     
     def create(self, validated_data):
-        return Event.objects.create(**validated_data)
+        return Notice.objects.create(**validated_data)
 
 class SerialResearch(serializers.ModelSerializer):
 
@@ -96,7 +107,7 @@ class SerialResearch(serializers.ModelSerializer):
         read_only_fields = ['id', 'slug', 'create_date', 'update_date']
     
     def create(self, validated_data):
-        return Event.objects.create(**validated_data)
+        return Research.objects.create(**validated_data)
 
 class SerialScholarship(serializers.ModelSerializer):
 
@@ -106,5 +117,5 @@ class SerialScholarship(serializers.ModelSerializer):
         read_only_fields = ['id', 'slug', 'create_date', 'update_date']
 
     def create(self, validated_data):
-        return Event.objects.create(**validated_data)
+        return Scholarship.objects.create(**validated_data)
 
