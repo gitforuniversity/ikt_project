@@ -93,13 +93,13 @@
 {% block js %}
 
 {% comment %} <script>
-  let stories = document.getElementById('courses');
+  let courses = document.getElementById('courses');
 
   fetch('http://127.0.0.1:8000/api/courses/').then((data)=>{
       return data.json();
   }).then((data)=>{
       for(let i of data){
-          stories.insertAdjacentHTML("beforeend", `
+          courses.insertAdjacentHTML("beforeend", `
           <div class="col-lg-4 col-sm-6 mb-5">
             <div class="card p-0 border-primary rounded-0 hover-shadow">
               <img class="card-img-top rounded-0" src="${i.cover_img.url}" alt="course thumb"/>
