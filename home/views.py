@@ -21,7 +21,7 @@ def about(request):
         'teachers':Teacher.objects.all(),
         'teachers_count': len(Teacher.objects.all()),
         'courses_count': len(Course.objects.all()),
-        'users_count': len(User.objects.all())*30,
+        'users_count': len(User.objects.all()),
     }
     return render(request=request, template_name='about.html', context=context)
 
